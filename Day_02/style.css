@@ -1,6 +1,12 @@
-/* delete the following line if no text is used */
-/* edit the line if you wanna use other fonts */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
+:root {
+    --line-height: 6px;
+    --line-space: 16px;
+    --line-width: 60px;
+    --line-color: #fff;
+    --animation-cubic-bezier: cubic-bezier(0.30,1,0.70,1);
+    --animation-duration: 0.7s;
+    --x-color: #7a7a7a;
+}
 
 /* use only the available space inside the 400x400 frame */
 .frame {
@@ -22,22 +28,111 @@
 }
 
 .center {
-    display: flex;
     transform: translate(170px, 180px);
-    height: 40px;
-    width: 60px;
-    align-content: space-between;
-    flex-wrap: wrap;
+    height: calc((var(--line-height)*3 + var(--line-space)*2));
+    width: var(--line-width);
+    cursor: pointer;
 }
 
-.center:hover .line{
-    background-color: #e3e3e3;
-}
+/* .center:hover .line{
+    background-color: var(--x-color);
+} */
+
 
 .line {
-    width: 100%;
-    height: 7px;
+    position: absolute;
+    width: var(--line-width);
+    height: var(--line-height);
     border-radius: 2px;
-    background: #fff;
+    background: var(--line-color);
     box-shadow: 1px 2px 10px 0 rgba(0,0,0,0.3);
+    transition: var(--animation-duration) ease-in-out;
+}
+
+.one {
+    animation: top-animation-rev var(--animation-duration) ease-in-out;
+}
+
+.two {
+    top: var(--line-space);
+}
+
+.three {
+    animation: bottom-animation-rev var(--animation-duration) ease-in-out;
+    top: calc(var(--line-space)*2);
+}
+
+.one-animate {
+    animation: top-animation var(--animation-duration) var(--animation-cubic-bezier) forwards;
+}
+
+.two-animate {
+    transition: calc(var(--animation-duration)*0.5);
+    transform: scale(0);
+    
+}
+
+.three-animate {
+    animation: bottom-animation var(--animation-duration) var(--animation-cubic-bezier) forwards;
+}
+
+.no-animation {
+	-webkit-animation: none !important;
+    animation: none !important; 
+}
+
+@keyframes top-animation {
+    0% {
+        transform: translate(0);
+    }
+    50% {
+        transform: translateY(var(--line-space));
+        background: var(--line-color);
+    }
+    100% {
+        transform: translateY(var(--line-space)) rotate(45deg);
+        background: var(--x-color);
+    }
+}
+
+@keyframes top-animation-rev {
+    0% {
+        transform: translateY(var(--line-space)) rotate(45deg);
+        background: var(--x-color);
+    }
+    50% {
+        transform: translateY(var(--line-space));
+        background: var(--line-color);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes bottom-animation {
+    0% {
+        transform: translate(0);
+    }
+    50% {
+        transform: translateY(calc(-1*var(--line-space)));
+        background: var(--line-color);
+    }
+    100% {
+        transform: translateY(calc(-1*var(--line-space))) rotate(135deg);
+        background: var(--x-color);
+    }
+}
+
+@keyframes bottom-animation-rev {
+    0% {
+        transform: translateY(calc(-1*var(--line-space))) rotate(135deg);
+        background: var(--x-color);
+    }
+    50% {
+        transform: translateY(calc(-1*var(--line-space)));
+        background: var(--line-color);
+    }
+    100% {
+        transform: translate(0);
+    }
 }
